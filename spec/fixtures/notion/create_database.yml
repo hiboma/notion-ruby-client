@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.notion.com/v1/databases
+    uri: https://api.notion.com/v1/data_sources
     body:
       encoding: UTF-8
       string: "{\"parent\":{\"page_id\":\"c7fd1abe811444eabe779632ea33e581\"},\"title\":[{\"text\":{\"content\":\"Orbit
@@ -15,7 +15,7 @@ http_interactions:
       Authorization:
       - Bearer <NOTION_API_TOKEN>
       Notion-Version:
-      - '2022-02-22'
+      - '2025-09-03'
       Content-Type:
       - application/json
       Accept-Encoding:

@@ -38,8 +38,8 @@ module Notion
         # @option options [Object] :children
         #   An optional array of Block objects representing the Page’s content
         def create_page(options = {})
-          if options.dig(:parent, :database_id).nil? && options.dig(:parent, :page_id).nil?
-            throw ArgumentError.new('Required argument :parent.database_id or :parent.page_id required')
+          if options.dig(:parent, :data_source_id).nil? && options.dig(:parent, :page_id).nil?
+            throw ArgumentError.new('Required argument :parent.data_source_id or :parent.page_id required')
           end
 
           post("pages", options)

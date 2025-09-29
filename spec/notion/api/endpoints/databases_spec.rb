@@ -3,7 +3,7 @@ require 'spec_helper'
 
 RSpec.describe Notion::Api::Endpoints::Databases do
   let(:client) { Notion::Client.new }
-  let(:database_id) { 'dd428e9dd3fe4171870da7a1902c748b' }
+  let(:data_source_id) { 'dd428e9dd3fe4171870da7a1902c748b' }
   let(:page_id) { 'c7fd1abe811444eabe779632ea33e581' }
   let(:title) do
     [
@@ -24,13 +24,13 @@ RSpec.describe Notion::Api::Endpoints::Databases do
 
   context 'databases' do
     it 'queries', vcr: { cassette_name: 'database_query' } do
-      response = client.database_query(database_id: database_id)
+      response = client.database_query(data_source_id: data_source_id)
       expect(response.results.length).to be >= 1
     end
 
     it 'paginated queries', vcr: { cassette_name: 'paginated_database_query' } do
       pages = []
-      client.database_query(database_id: database_id, page_size: 1) do |page|
+      client.database_query(data_source_id: data_source_id, page_size: 1) do |page|
         pages.concat page.results
       end
       expect(pages.size).to be >= 1
@@ -47,14 +47,14 @@ RSpec.describe Notion::Api::Endpoints::Databases do
 
     it 'updates', vcr: { cassette_name: 'update_database' } do
       response = client.update_database(
-        database_id: database_id,
+        data_source_id: data_source_id,
         title: title
       )
       expect(response.title.first.plain_text).to eql 'Orbit 💜 Notion'
     end
 
     it 'retrieves', vcr: { cassette_name: 'database' } do
-      response = client.database(database_id: database_id)
+      response = client.database(data_source_id: data_source_id)
       expect(response.title.first.plain_text).to eql 'Orbit 💜 Notion'
     end
   end

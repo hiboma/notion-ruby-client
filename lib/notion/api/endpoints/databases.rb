@@ -16,7 +16,7 @@ module Notion
         # database properties and can be combined. The order of the sorts in the request
         # matter, with earlier sorts taking precedence over later ones.
         #
-        # @option options [id] :database_id
+        # @option options [id] :data_source_id
         #   Database to query.
         #
         # @option options [Object] :filter
@@ -34,14 +34,15 @@ module Notion
         # @option options [integer] :page_size
         #   The number of items from the full list desired in the response. Maximum: 100
         def database_query(options = {})
-          throw ArgumentError.new('Required arguments :database_id missing') if options[:database_id].nil?
+          pp options
+          throw ArgumentError.new('Required arguments :data_source_id missing') if options[:data_source_id].nil?
           if block_given?
             Pagination::Cursor.new(self, :database_query, options).each do |page|
               yield page
             end
           else
-            database_id = options.delete(:database_id)
-            post("databases/#{database_id}/query", options)
+            data_source_id = options.delete(:data_source_id)
+            post("data_sources/#{data_source_id}/query", options)
           end
         end
 
@@ -64,14 +65,14 @@ module Notion
           throw ArgumentError.new('Required arguments :parent.page_id missing') if options.dig(:parent, :page_id).nil?
           throw ArgumentError.new('Required arguments :title missing') if options.dig(:title).nil?
           throw ArgumentError.new('Required arguments :properties missing') if options.dig(:properties).nil?
-          post('databases', options)
+          post('data_sources', options)
         end
 
         #
         # Updates an existing database as specified by the parameters.
         #
-        # @option options [id] :database_id
-        #   Database to update.
+  # @option options [id] :data_source_id
+  #   Database to update.
         #
         # @option options [Object] :title
         #   Title of database as it appears in Notion. An array of rich text objects.
@@ -85,9 +86,9 @@ module Notion
         #   the name of the database property and the value is a property schema object.
         #
         def update_database(options = {})
-          database_id = options.delete(:database_id)
-          throw ArgumentError.new('Required arguments :database_id missing') if database_id.nil?
-          patch("databases/#{database_id}", options)
+          data_source_id = options.delete(:data_source_id)
+          throw ArgumentError.new('Required arguments :data_source_id missing') if data_source_id.nil?
+          patch("data_sources/#{data_source_id}", options)
         end
 
         #
@@ -97,11 +98,11 @@ module Notion
         # doesn't have access to the database. Returns a 429 HTTP response if the
         # request exceeds Notion's Request limits.
         #
-        # @option options [id] :database_id
+        # @option options [id] :data_source_id
         #   Database to get info on.
         def database(options = {})
-          throw ArgumentError.new('Required arguments :database_id missing') if options[:database_id].nil?
-          get("databases/#{options[:database_id]}")
+          throw ArgumentError.new('Required arguments :data_source_id missing') if options[:data_source_id].nil?
+          get("data_sources/#{options[:data_source_id]}")
         end
       end
     end

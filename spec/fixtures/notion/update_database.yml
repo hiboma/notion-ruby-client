@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: patch
-    uri: https://api.notion.com/v1/databases/dd428e9dd3fe4171870da7a1902c748b
+    uri: https://api.notion.com/v1/data_sources/dd428e9dd3fe4171870da7a1902c748b
     body:
       encoding: UTF-8
       string: "{\"title\":[{\"text\":{\"content\":\"Orbit \U0001F49C Notion\"}}]}"
@@ -14,7 +14,7 @@ http_interactions:
       Authorization:
       - Bearer <NOTION_API_TOKEN>
       Notion-Version:
-      - '2022-02-22'
+      - '2025-09-03'
       Content-Type:
       - application/json
       Accept-Encoding:

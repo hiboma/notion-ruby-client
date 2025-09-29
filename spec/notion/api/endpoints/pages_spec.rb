@@ -3,7 +3,7 @@ require 'spec_helper'
 
 RSpec.describe Notion::Api::Endpoints::Pages do
   let(:client) { Notion::Client.new }
-  let(:database_id) { 'dd428e9d-d3fe-4171-870d-a7a1902c748b' }
+  let(:data_source_id) { 'dd428e9d-d3fe-4171-870d-a7a1902c748b' }
   let(:page_id) { 'c7fd1abe-8114-44ea-be77-9632ea33e581' }
   let(:property_id) { '%5BIFC' }
   let(:properties) do
@@ -40,7 +40,7 @@ RSpec.describe Notion::Api::Endpoints::Pages do
 
     it 'creates', vcr: { cassette_name: 'create_page' } do
       response = client.create_page(
-        parent: { database_id: database_id },
+        parent: { data_source_id: data_source_id },
         properties: properties,
         children: children
       )
