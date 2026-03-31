@@ -34,7 +34,6 @@ module Notion
         # @option options [integer] :page_size
         #   The number of items from the full list desired in the response. Maximum: 100
         def database_query(options = {})
-          pp options
           throw ArgumentError.new('Required arguments :data_source_id missing') if options[:data_source_id].nil?
           if block_given?
             Pagination::Cursor.new(self, :database_query, options).each do |page|
